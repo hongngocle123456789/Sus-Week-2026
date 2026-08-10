@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngoc Le - Growing Deep Roots | Sus Week 2026</title>
+    <style>
+        /* --- DESIGN SYSTEM (Deep Forest Theme) --- */
+        :root {
+            --bg-deep: #0b1a0f;
+            --bg-card: rgba(20, 40, 25, 0.6);
+            --text-parchment: #e8e6e1;
+            --text-dim: #a8a49c;
+            --accent-seed: #f4d35e; /* Yellow/Gold */
+            --accent-shoot: #55a630; /* Vibrant Green */
+            --accent-seedling: #80c940; /* Light Green */
+            --accent-sapling: #2d6a4f; /* Deep Mature Green */
+            --accent-root: #8b5e3c; /* Wood/Brown */
+            --accent-water: #4ea8de; /* Blue/System */
+        }
+
+        /* --- BASE & TYPOGRAPHY --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-parchment);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-weight: lighter;
+            letter-spacing: 1px;
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            margin-bottom: 100px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at 50% 100%, #1a3a22 0%, var(--bg-deep) 70%);
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: fadeUp 1.2s ease forwards;
+        }
+
+        .hero h1 span {
+            color: var(--accent-shoot);
+            font-style: italic;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.3s forwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            width: 24px; height: 40px;
+            border: 2px solid var(--text-dim);
+            border-radius: 12px;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.5s forwards;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            position: absolute;
+            top: 8px; left: 50%;
+            transform: translateX(-50%);
+            width: 4px; height: 8px;
+            background: var(--text-dim);
+            border-radius: 2px;
+            animation: scrollBounce 2s infinite;
+        }
+
+        /* --- METAPHOR / INTRO SECTION --- */
+        .intro-narrative {
+            text-align: center; 
+            margin-bottom: 50px; 
+            font-size: 1.1rem; 
+            color: #ffffff;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .intro-narrative strong {
+            color: var(--accent-seedling);
+        }
+
+        .intro-tree-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin: 40px auto;
+            max-width: 650px;
+        }
+
+        .tree-svg-wrapper {
+            flex-shrink: 0;
+            width: 150px;
+        }
+
+        .tree-svg {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(85, 166, 48, 0.15));
+        }
+
+        .tree-text-nodes {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .tree-text-node span {
+            display: block;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-family: 'Georgia', serif;
+        }
+
+        .tree-text-node p {
+            margin: 0;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .seed { color: var(--accent-seed); }
+        .seedling { color: var(--accent-seedling); }
+        .sapling { color: var(--accent-sapling); }
+
+        .intro-text {
+            font-size: 1.3rem;
+            text-align: center;
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+
+        /* --- SUITABILITY SECTION (The Growth Bars) --- */
+        .suitability-item {
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .suitability-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .skill-title { font-weight: bold; }
+        .skill-percent { color: var(--accent-shoot); font-family: monospace; }
+
+        .growth-track {
+            width: 100%;
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .growth-fill {
+            height: 100%;
+            width: 0;
+            border-radius: 6px;
+            transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+        }
+
+        /* Leaf particle animation on bars */
+        .growth-fill::after {
+            content: '🌿';
+            position: absolute;
+            right: -5px;
+            top: -10px;
+            font-size: 1.2rem;
+            opacity: 0;
+            transition: opacity 0.3s ease 1.5s;
+        }
+
+        .suitability-item.visible .growth-fill::after {
+            opacity: 1;
+        }
+
+        .fill-40 { background: linear-gradient(90deg, var(--accent-root), var(--accent-shoot)); }
+        .fill-30 { background: linear-gradient(90deg, var(--accent-shoot), #80c940); }
+        .fill-20 { background: linear-gradient(90deg, var(--accent-water), #70bce8); }
+        .fill-10 { background: linear-gradient(90deg, var(--accent-seed), #f7e98e); }
+
+        .skill-desc {
+            margin-top: 12px;
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        .framework-callout {
+            margin-top: 60px;
+            padding: 30px;
+            border: 1px solid var(--accent-shoot);
+            border-radius: 8px;
+            background: rgba(85, 166, 48, 0.1);
+            text-align: center;
+        }
+
+        /* --- EXPECTATIONS SECTION (The Canopy) --- */
+        .expectations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+
+        .expectation-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .expectation-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease;
+        }
+
+        .expectation-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-shoot);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--accent-seed);
+        }
+
+        .card-text {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        /* --- CONCLUSION --- */
+        .conclusion {
+            text-align: center;
+            padding: 80px 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .conclusion h2 {
+            font-size: 2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scrollBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(10px); }
+            60% { transform: translateX(-50%) translateY(5px); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.5rem; }
+            .intro-narrative { font-size: 1rem; }
+            .intro-tree-container { flex-direction: column; gap: 30px; }
+            .tree-svg-wrapper { width: 120px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HERO -->
+    <div class="hero">
+        <h1>Growing <span>Deep Roots</span></h1>
+        <p>My Suitability & Vision for Sustainability Week 2026</p>
+        <div class="scroll-indicator"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- INTRO -->
+        <section id="intro">
+            <p class="intro-narrative">
+                My journey with the Sustainability Department is defined by one core truth: <strong>I received so much, and now I want to give back.</strong> When I started, I was a blank canvas. The department invested in me, trained me, and gave me the soil to take root. Because they supported my growth, I now have the capacity to support others. I am applying for Sus Week 2026 to use everything they’ve nurtured in me to architect a thriving ecosystem for our community.
+            </p>
+            
+            <div class="intro-tree-container">
+                <div class="tree-svg-wrapper">
+                    <svg viewBox="0 0 200 350" class="tree-svg">
+                        <!-- Soil Background -->
+                        <rect x="0" y="220" width="200" height="130" fill="#1a0f05" opacity="0.4"/>
+                        <path d="M0,220 Q50,215 100,220 T200,220" stroke="#8b5e3c" stroke-width="2" fill="none" opacity="0.6"/>
+
+                        <!-- Roots (From Seed) -->
+                        <path d="M100,280 C80,300 60,310 40,320" stroke="#8b5e3c" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M100,280 C120,300 140,310 160,320" stroke="#8b5e3c" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        <path d="M100,280 C90,310 90,330 90,340" stroke="#8b5e3c" stroke-width="2" fill="none" stroke-linecap="round"/>
+                        
+                        <!-- Seed (Underground) -->
+                        <ellipse cx="100" cy="270" rx="10" ry="12" fill="#f4d35e"/>
+                        
+                        <!-- Stem (Breaking ground & Seedling) -->
+                        <path d="M100,270 L100,150" stroke="#55a630" stroke-width="4" stroke-linecap="round"/>
+                        
+                        <!-- Seedling Leaves -->
+                        <path d="M100,190 C90,180 80,170 85,155" stroke="#80c940" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        <path d="M100,190 C110,180 120,170 115,155" stroke="#80c940" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+                        <!-- Sapling Canopy (Mature) -->
+                        <circle cx="100" cy="120" r="30" fill="#2d6a4f" opacity="0.6"/>
+                        <circle cx="80" cy="140" r="20" fill="#2d6a4f" opacity="0.5"/>
+                        <circle cx="120" cy="140" r="20" fill="#2d6a4f" opacity="0.5"/>
+                        <circle cx="100" cy="100" r="15" fill="#2d6a4f" opacity="0.4"/>
+                    </svg>
+                </div>
+                <div class="tree-text-nodes">
+                    <div class="tree-text-node node-seed">
+                        <span class="seed">Phase 1: The Seed</span>
+                        <p>Started by learning and volunteering. I joined a lot of training sessions organized by the SAP program, absorbing everything like a seed in nourished soil.</p>
+                    </div>
+                    <div class="tree-text-node node-seedling">
+                        <span class="seedling">Phase 2: The Seedling</span>
+                        <p>Taking part in the project. I broke the surface by becoming the Data Management Coordinator for the Zero Waste project, putting my learning into action.</p>
+                    </div>
+                    <div class="tree-text-node node-sapling">
+                        <span class="sapling">Phase 3: The Sapling</span>
+                        <p>Ready to architect the ecosystem for others. Having grown from nurtured seed to active participant, I am now ready to help design the environment where others can grow.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="intro-text">
+                My suitability comes down to a simple reality: <strong>I have already performed the core responsibilities of this role, just at a smaller scale.</strong>
+            </p>
+        </section>
+
+        <!-- SUITABILITY -->
+        <section id="suitability">
+            <h2 style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">Role Suitability</h2>
+
+            <!-- Item 1 -->
+            <div class="suitability-item">
+                <div class="skill-header">
+                    <span class="skill-title">Activity Content Design</span>
+                    <span class="skill-percent">40%</span>
+                </div>
+                <div class="growth-track">
+                    <div class="growth-fill fill-40" data-width="40%"></div>
+                </div>
+                <p class="skill-desc">For Sus Week 2025, I didn't just help run a workshop; I co-designed the Sustainable Lip Balm Workshop from scratch—writing the proposal, building the budget, and developing the facilitation materials. I know how to take a sustainability concept and turn it into an interactive participant experience.</p>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="suitability-item">
+                <div class="skill-header">
+                    <span class="skill-title">Partnership & Cross-team Coordination</span>
+                    <span class="skill-percent">30%</span>
+                </div>
+                <div class="growth-track">
+                    <div class="growth-fill fill-30" data-width="30%"></div>
+                </div>
+                <p class="skill-desc">During the SIC, I operated at the intersection of students, academics, and industry partners. But my biggest test was as an SIC Participant. Every session, I was placed in a team of complete strangers. I had to build trust rapidly, navigate diverse perspectives, and produce cohesive outputs. I know how to find synergy among people who don't naturally speak the same language.</p>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="suitability-item">
+                <div class="skill-header">
+                    <span class="skill-title">Program Consistency & Quality</span>
+                    <span class="skill-percent">20%</span>
+                </div>
+                <div class="growth-track">
+                    <div class="growth-fill fill-20" data-width="20%"></div>
+                </div>
+                <p class="skill-desc">Creativity needs structure. As the Data Management Coordinator for the Zero Waste Project, I’ve learned the unglamorous but vital skill of standardizing workflows and validating data so that reporting is actually reliable. I will bring this same rigor to reviewing activity content and ensuring alignment across the Sus Week program flow.</p>
+            </div>
+
+            <!-- Item 4 -->
+            <div class="suitability-item">
+                <div class="skill-header">
+                    <span class="skill-title">Progress Monitoring & Event Support</span>
+                    <span class="skill-percent">10%</span>
+                </div>
+                <div class="growth-track">
+                    <div class="growth-fill fill-10" data-width="10%"></div>
+                </div>
+                <p class="skill-desc">Having supported RED events with 1,000+ participants and managed VIP logistics, I know what it takes to execute flawlessly on the day. I can document risks and decisions on the fly while keeping the participant experience smooth.</p>
+            </div>
+
+            <div class="framework-callout">
+                <strong>🏆 The Elevator:</strong> My recent SIC training equipped me with the "hard framework" skills that elevate this role: <em>Systems Thinking, Theory of Change, and Product Lifecycle Assessment</em>. I don't just intuitively understand sustainability; I can structurally apply it to activity design.
+            </div>
+        </section>
+
+        <!-- EXPECTATIONS -->
+        <section id="expectations">
+            <h2 style="margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">Expectations & Vision</h2>
+            <p style="margin-bottom: 40px; color: var(--text-dim);">
+                I expect this internship to be a masterclass in <strong>Scaling Impact</strong>. Thus far, my wins have been relatively contained: a workshop for 40 people, data sets for one project, or coordinating a single stakeholder meeting. Sus Week 2026 is a flagship program reaching over 1,000 people and 10 co-creation partners. From this position, I expect to learn:
+            </p>
+
+            <div class="expectations-grid">
+                <div class="expectation-card">
+                    <span class="card-icon">🦋</span>
+                    <h3 class="card-title">Design for Transformation</h3>
+                    <p class="card-text">I want to see how the Program Lead uses the maturity-based approach (Seeds, Shoots, Deep Roots) to actually measure behaviour change. I expect to learn how to map an activity’s learning outcomes to a long-term Theory of Change, rather than just tracking attendance.</p>
+                </div>
+
+                <div class="expectation-card">
+                    <span class="card-icon">🤝</span>
+                    <h3 class="card-title">Mechanics of Co-creation</h3>
+                    <p class="card-text">I’ve coordinated partners before, but "co-creation" implies a deeper level of shared ownership. I expect to learn how the Sustainability Department negotiates, aligns, and builds alongside external NGOs and industry experts so that the program benefits from their expertise without losing its core DNA.</p>
+                </div>
+
+                <div class="expectation-card">
+                    <span class="card-icon">🕸️</span>
+                    <h3 class="card-title">Systems-level Orchestration</h3>
+                    <p class="card-text">I expect to gain a "bird’s-eye view" of how content, communications, and operations teams interlock. I want to learn how to monitor the health of a multi-month project, spot bottlenecks before they delay deliverables, and adapt content when partnerships or schedules shift unexpectedly.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONCLUSION -->
+        <section class="conclusion">
+            <h2>From supporting... to architecting.</h2>
+            <p style="color: var(--text-dim); max-width: 600px; margin: 0 auto;">
+                Ultimately, I expect to walk away from this internship no longer just being someone who supports sustainability initiatives, but someone who knows how to design and architect them from the ground up.
+            </p>
+        </section>
+
+    </div>
+
+    <!-- JAVASCRIPT FOR ANIMATIONS -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        
+                        // Add visible class for CSS transitions
+                        el.classList.add('visible');
+
+                        // Animate the growth bars
+                        if (el.classList.contains('suitability-item')) {
+                            const bar = el.querySelector('.growth-fill');
+                            if (bar) {
+                                const width = bar.getAttribute('data-width');
+                                setTimeout(() => {
+                                    bar.style.width = width;
+                                }, 200);
+                            }
+                        }
+
+                        observer.unobserve(el);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe suitability items
+            document.querySelectorAll('.suitability-item').forEach(item => {
+                observer.observe(item);
+            });
+
+            // Observe expectation cards with staggered delay
+            document.querySelectorAll('.expectation-card').forEach((card, index) => {
+                card.style.transitionDelay = `${index * 0.15}s`;
+                observer.observe(card);
+            });
+
+        });
+    </script>
+</body>
+</html>
