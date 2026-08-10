@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ngoc Le - Growing Deep Roots | Sus Week 2026</title>
     <style>
-        /* --- DESIGN SYSTEM (Deep Forest Theme) --- */
+        /* --- DESIGN SYSTEM (Bright Future Theme) --- */
         :root {
-            --bg-deep: #0b1a0f;
-            --bg-card: rgba(20, 40, 25, 0.6);
-            --text-parchment: #e8e6e1;
-            --text-dim: #a8a49c;
-            --accent-seed: #f4d35e; /* Yellow/Gold */
-            --accent-shoot: #55a630; /* Vibrant Green */
-            --accent-seedling: #80c940; /* Light Green */
-            --accent-sapling: #2d6a4f; /* Deep Mature Green */
-            --accent-root: #8b5e3c; /* Wood/Brown */
-            --accent-water: #4ea8de; /* Blue/System */
+            --bg-deep: #f0f7f4; /* Light Mint/Sage */
+            --bg-card: rgba(255, 255, 255, 0.85); /* Crisp White Glass */
+            --text-parchment: #1b2e23; /* Deep Forest Green */
+            --text-dim: #5f7568; /* Muted Sage */
+            --accent-seed: #f9a825; /* Rich Goldenrod */
+            --accent-shoot: #43a047; /* Vibrant Green */
+            --accent-seedling: #7cb342; /* Light Green */
+            --accent-sapling: #2e7d32; /* Deep Mature Green */
+            --accent-root: #795548; /* Material Brown */
+            --accent-water: #039be5; /* Bright Sky Blue */
         }
 
         /* --- BASE & TYPOGRAPHY --- */
@@ -66,7 +66,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle at 50% 100%, #1a3a22 0%, var(--bg-deep) 70%);
+            background: radial-gradient(circle at 50% 100%, #dcedc8 0%, var(--bg-deep) 70%);
             z-index: -1;
         }
 
@@ -114,57 +114,69 @@
         /* --- METAPHOR / INTRO SECTION --- */
         .intro-narrative {
             text-align: center; 
-            margin-bottom: 50px; 
+            margin-bottom: 60px; 
             font-size: 1.1rem; 
-            color: #ffffff;
+            color: var(--text-parchment);
             max-width: 700px;
             margin-left: auto;
             margin-right: auto;
         }
 
         .intro-narrative strong {
-            color: var(--accent-seedling);
+            color: var(--accent-sapling);
         }
 
-        .intro-tree-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 50px;
-            margin: 40px auto;
-            max-width: 650px;
-        }
-
-        .tree-svg-wrapper {
-            flex-shrink: 0;
-            width: 150px;
-        }
-
-        .tree-svg {
-            width: 100%;
-            height: auto;
-            filter: drop-shadow(0 0 10px rgba(85, 166, 48, 0.15));
-        }
-
-        .tree-text-nodes {
+        .growth-timeline {
             display: flex;
             flex-direction: column;
             gap: 40px;
+            max-width: 750px;
+            margin: 0 auto 60px auto;
+            padding: 20px 0;
         }
 
-        .tree-text-node span {
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        .timeline-visual {
+            flex-shrink: 0;
+            width: 90px;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.04);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .phase-svg {
+            width: 60px;
+            height: 60px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding-top: 10px;
+        }
+
+        .timeline-content span {
             display: block;
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             font-weight: bold;
             margin-bottom: 8px;
             font-family: 'Georgia', serif;
         }
 
-        .tree-text-node p {
+        .timeline-content p {
             margin: 0;
             color: var(--text-dim);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 1rem;
+            line-height: 1.6;
         }
 
         .seed { color: var(--accent-seed); }
@@ -174,7 +186,7 @@
         .intro-text {
             font-size: 1.3rem;
             text-align: center;
-            margin-top: 60px;
+            margin-top: 20px;
             margin-bottom: 60px;
         }
 
@@ -204,7 +216,7 @@
         .growth-track {
             width: 100%;
             height: 12px;
-            background: rgba(255,255,255,0.1);
+            background: rgba(0, 0, 0, 0.06);
             border-radius: 6px;
             overflow: hidden;
             position: relative;
@@ -234,9 +246,9 @@
         }
 
         .fill-40 { background: linear-gradient(90deg, var(--accent-root), var(--accent-shoot)); }
-        .fill-30 { background: linear-gradient(90deg, var(--accent-shoot), #80c940); }
-        .fill-20 { background: linear-gradient(90deg, var(--accent-water), #70bce8); }
-        .fill-10 { background: linear-gradient(90deg, var(--accent-seed), #f7e98e); }
+        .fill-30 { background: linear-gradient(90deg, var(--accent-shoot), var(--accent-seedling)); }
+        .fill-20 { background: linear-gradient(90deg, var(--accent-water), #4fc3f7); }
+        .fill-10 { background: linear-gradient(90deg, var(--accent-seed), #fdd835); }
 
         .skill-desc {
             margin-top: 12px;
@@ -249,7 +261,7 @@
             padding: 30px;
             border: 1px solid var(--accent-shoot);
             border-radius: 8px;
-            background: rgba(85, 166, 48, 0.1);
+            background: rgba(67, 160, 71, 0.08);
             text-align: center;
         }
 
@@ -263,9 +275,10 @@
         .expectation-card {
             background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
             border-radius: 16px;
             padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
             transition: transform 0.3s ease, border-color 0.3s ease;
             opacity: 0;
             transform: translateY(40px);
@@ -291,7 +304,7 @@
         .card-title {
             font-size: 1.2rem;
             margin-bottom: 15px;
-            color: var(--accent-seed);
+            color: var(--accent-sapling);
         }
 
         .card-text {
@@ -303,7 +316,7 @@
         .conclusion {
             text-align: center;
             padding: 80px 0;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
         }
 
         .conclusion h2 {
@@ -328,8 +341,9 @@
         @media (max-width: 600px) {
             .hero h1 { font-size: 2.5rem; }
             .intro-narrative { font-size: 1rem; }
-            .intro-tree-container { flex-direction: column; gap: 30px; }
-            .tree-svg-wrapper { width: 120px; }
+            .timeline-item { flex-direction: column; align-items: center; text-align: center; }
+            .timeline-visual { width: 70px; height: 70px; }
+            .phase-svg { width: 50px; height: 50px; }
         }
     </style>
 </head>
@@ -350,45 +364,52 @@
                 My journey with the Sustainability Department is defined by one core truth: <strong>I received so much, and now I want to give back.</strong> When I started, I was a blank canvas. The department invested in me, trained me, and gave me the soil to take root. Because they supported my growth, I now have the capacity to support others. I am applying for Sus Week 2026 to use everything they’ve nurtured in me to architect a thriving ecosystem for our community.
             </p>
             
-            <div class="intro-tree-container">
-                <div class="tree-svg-wrapper">
-                    <svg viewBox="0 0 200 350" class="tree-svg">
-                        <!-- Soil Background -->
-                        <rect x="0" y="220" width="200" height="130" fill="#1a0f05" opacity="0.4"/>
-                        <path d="M0,220 Q50,215 100,220 T200,220" stroke="#8b5e3c" stroke-width="2" fill="none" opacity="0.6"/>
-
-                        <!-- Roots (From Seed) -->
-                        <path d="M100,280 C80,300 60,310 40,320" stroke="#8b5e3c" stroke-width="2" fill="none" stroke-linecap="round"/>
-                        <path d="M100,280 C120,300 140,310 160,320" stroke="#8b5e3c" stroke-width="2" fill="none" stroke-linecap="round"/>
-                        <path d="M100,280 C90,310 90,330 90,340" stroke="#8b5e3c" stroke-width="2" fill="none" stroke-linecap="round"/>
-                        
-                        <!-- Seed (Underground) -->
-                        <ellipse cx="100" cy="270" rx="10" ry="12" fill="#f4d35e"/>
-                        
-                        <!-- Stem (Breaking ground & Seedling) -->
-                        <path d="M100,270 L100,150" stroke="#55a630" stroke-width="4" stroke-linecap="round"/>
-                        
-                        <!-- Seedling Leaves -->
-                        <path d="M100,190 C90,180 80,170 85,155" stroke="#80c940" stroke-width="3" fill="none" stroke-linecap="round"/>
-                        <path d="M100,190 C110,180 120,170 115,155" stroke="#80c940" stroke-width="3" fill="none" stroke-linecap="round"/>
-
-                        <!-- Sapling Canopy (Mature) -->
-                        <circle cx="100" cy="120" r="30" fill="#2d6a4f" opacity="0.6"/>
-                        <circle cx="80" cy="140" r="20" fill="#2d6a4f" opacity="0.5"/>
-                        <circle cx="120" cy="140" r="20" fill="#2d6a4f" opacity="0.5"/>
-                        <circle cx="100" cy="100" r="15" fill="#2d6a4f" opacity="0.4"/>
-                    </svg>
-                </div>
-                <div class="tree-text-nodes">
-                    <div class="tree-text-node node-seed">
+            <div class="growth-timeline">
+                <!-- Phase 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-visual">
+                        <svg viewBox="0 0 100 100" class="phase-svg">
+                            <rect x="5" y="45" width="90" height="50" fill="#d7ccc8" rx="8"/>
+                            <path d="M50,65 C40,80 30,85 20,95" stroke="#795548" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <path d="M50,65 C60,80 70,85 80,95" stroke="#795548" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <ellipse cx="50" cy="60" rx="10" ry="12" fill="#f9a825"/>
+                        </svg>
+                    </div>
+                    <div class="timeline-content">
                         <span class="seed">Phase 1: The Seed</span>
                         <p>Started by learning and volunteering. I joined a lot of training sessions organized by the SAP program, absorbing everything like a seed in nourished soil.</p>
                     </div>
-                    <div class="tree-text-node node-seedling">
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-visual">
+                        <svg viewBox="0 0 100 100" class="phase-svg">
+                            <rect x="5" y="75" width="90" height="20" fill="#d7ccc8" rx="8"/>
+                            <line x1="5" y1="75" x2="95" y2="75" stroke="#795548" stroke-width="2"/>
+                            <path d="M50,95 L50,40" stroke="#43a047" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M50,55 C40,50 30,45 35,30" stroke="#7cb342" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <path d="M50,55 C60,50 70,45 65,30" stroke="#7cb342" stroke-width="3" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="timeline-content">
                         <span class="seedling">Phase 2: The Seedling</span>
                         <p>Taking part in the project. I broke the surface by becoming the Data Management Coordinator for the Zero Waste project, putting my learning into action.</p>
                     </div>
-                    <div class="tree-text-node node-sapling">
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="timeline-item">
+                    <div class="timeline-visual">
+                        <svg viewBox="0 0 100 100" class="phase-svg">
+                            <path d="M50,95 L50,30" stroke="#43a047" stroke-width="5" stroke-linecap="round"/>
+                            <circle cx="50" cy="25" r="20" fill="#2e7d32" opacity="0.6"/>
+                            <circle cx="35" cy="40" r="15" fill="#2e7d32" opacity="0.5"/>
+                            <circle cx="65" cy="40" r="15" fill="#2e7d32" opacity="0.5"/>
+                            <circle cx="50" cy="15" r="10" fill="#2e7d32" opacity="0.4"/>
+                        </svg>
+                    </div>
+                    <div class="timeline-content">
                         <span class="sapling">Phase 3: The Sapling</span>
                         <p>Ready to architect the ecosystem for others. Having grown from nurtured seed to active participant, I am now ready to help design the environment where others can grow.</p>
                     </div>
@@ -402,7 +423,7 @@
 
         <!-- SUITABILITY -->
         <section id="suitability">
-            <h2 style="margin-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">Role Suitability</h2>
+            <h2 style="margin-bottom: 40px; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 10px;">Role Suitability</h2>
 
             <!-- Item 1 -->
             <div class="suitability-item">
@@ -459,7 +480,7 @@
 
         <!-- EXPECTATIONS -->
         <section id="expectations">
-            <h2 style="margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 10px;">Expectations & Vision</h2>
+            <h2 style="margin-bottom: 20px; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 10px;">Expectations & Vision</h2>
             <p style="margin-bottom: 40px; color: var(--text-dim);">
                 I expect this internship to be a masterclass in <strong>Scaling Impact</strong>. Thus far, my wins have been relatively contained: a workshop for 40 people, data sets for one project, or coordinating a single stakeholder meeting. Sus Week 2026 is a flagship program reaching over 1,000 people and 10 co-creation partners. From this position, I expect to learn:
             </p>
